@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  # docker run -itd -v /tmp/.X11-unix:/tmp/.x11-unix -v /usr/share/fonts/truetype:/usr/share/fonts/truetype -e DISPLAY=$DISPLAY -e GDK_SCALE -e GDK_DPI_SCALE --net=host -v ~/docker:/workspace --gpus=all -e NVIDIA_DRIVER_CAPABILITIES=compute,utility -e NVIDIA_VISIBLE_DEVICES=all -p 8501:8501 jasonfun/pytorch:v20231214
+  pytorch:
+    build:
+      context: .
+      #dockerfile: Dockerfile
+      args:
+        - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
+#    image: jasonfun/pytorch:latest
+#    image: 24f6a0d24571
+    # runtime: nvidia 这行相当于 docker run 的 --gpus=all 参数，需要配置 /etc/docker/daemon.json 文件增加 runtimes - nvidia - path = /usr/bin/nvidia-container-runtime
+    runtime: nvidia
+    volumes:
+      - /tmp/.X11-unix:/tmp/.x11-unix
+      - /usr/share/fonts/truetype:/usr/share/fonts/truetype
+      - ~/docker:/workspace
+      - ./only4compose:/main
+      - ./testPlot:/test
+    restart: always
+    # command: top
+    # command: /usr/bin/top
+    command: python3 /main/daemon.py
+    ports:
+      - "8501:8501"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - GDK_SCALE
+      - GDK_DPI_SCALE
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - NVIDIA_VISIBLE_DEVICES=all
+    network_mode: host
