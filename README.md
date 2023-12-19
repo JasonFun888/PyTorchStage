@@ -1,11 +1,12 @@
-# PyTorch with Pyplot
+# PyTorch with PyPlot
 
 
 ## Features
 
 Highlights:
+* a docker development stage
 * extends from **PyTorch**
-* with `matplotlib.pyplot'
+* with `matplotlib.pyplot`
 * with `libx11-6` that can be share the tty of GUI Desktop to **show** what `plt.show()`
 
 
@@ -15,7 +16,8 @@ Highlights:
 
 Clone the jasonfun/pytorch repository into your local machine:
 ```sh
-git clone --recursive https://github.com/JasonFun888/pytorch.git && cd pytorch
+git clone --recursive https://github.com/JasonFun888/PyTorchStage.git
+cd PyTorchStage
 ```
 
 If you forgot the `--recursive` flag when cloning the repository, run the following command in the `chatglm.cpp` folder:
@@ -46,17 +48,17 @@ Download/Build the image using Docker Compose:
 ```sh
 echo $DISPLAY # make sure you got some value
 docker-compose up -d
-docker exec -it dockerimage-pytorch-1 bash
 ```
 
-Run the container using Docker:
-```sh
-docker exec -it dockerimage-pytorch-1 bash
-```
-
-or Run the container using Docker Compose:
+Run the container using Docker Compose:
 ```sh
 docker-compose exec pytorch bash
+```
+Note: For this way, it's required to `cd`(change the directory) into the one where the `docker-compose.yml` file resides!
+
+or Run the container using Docker:
+```sh
+docker exec -it pytorchstage-pytorch-1 bash
 ```
 
 **Play & Enjoy**

@@ -7,7 +7,7 @@ services:
       context: .
       #dockerfile: Dockerfile
       args:
-        - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
+        - USEFUL_INFO=DISPLAY
 #    image: jasonfun/pytorch:latest
 #    image: 24f6a0d24571
     # runtime: nvidia 这行相当于 docker run 的 --gpus=all 参数，需要配置 /etc/docker/daemon.json 文件增加 runtimes - nvidia - path = /usr/bin/nvidia-container-runtime
