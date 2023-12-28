@@ -21,6 +21,14 @@ RUN cd /opt/conda/lib/python3.1/site-packages/matplotlib/mpl-data \
     && sed -i'' 's/axes.unicode_minus: True/axes.unicode_minus: False/g' matplotlibrc \
     && echo Done.
 
+# chatglm3
+RUN pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple \
+    && pip3 config set install.trusted-host mirrors.aliyun.com
+RUN ln -s /workspace/ZhipuAI/ChatGLM3 /data
+COPY ./packages /data
+RUN cd /data \
+    && pip3 install -r requirements.txt
+
 CMD ["/bin/bash"]
 
 EXPOSE 8501
